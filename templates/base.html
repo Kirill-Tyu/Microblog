@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Microblog</title>
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+        <!-- Site Properties -->
+        <title>{% block title %}{% endblock %} | Website title</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.js" integrity="sha256-flVaeawsBV96vCHiLmXn03IRJym7+ZfcLVvUWONCas8=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.css" integrity="sha256-wT6CFc7EKRuf7uyVfi+MQNHUzojuHN2pSw0YWFt2K5E=" crossorigin="anonymous" />
+        <style>
+            .main.container {
+                margin-top: 7em;
+            }
+        </style>
+    </head>
+    <body>
+        <table class="table-page" border=0 cellpadding="0" cellspacing="0">
+        <tr>
+        <div>
+            Microblog:
+            {% if user %}
+                <a href="{{ url_for('start_page')}}">Home</a>
+                <a href="{{ url_for('users.my_data') }}">Profile</a>
+                <a href="{{ url_for('posts.all_posts') }} ">View all posts</a>
+                <a href="{{ url_for('posts.my_posts') }}">My posts</a>
+                <a href="{{ url_for('posts.add_post') }}">Add posts</a>
+        </tr>
+            <i aligh="right"> Hi, you entered as <b><u>{{user}}</u></b> !! </i>
+                <a href="{{ url_for('users.bp_logout') }}">Logout</a>
+            {% endif %}
+        </div>
+        <table class="table-content" border=0 cellpadding="0" cellspacing="0">
+        <table>
+        <hr>
+        <div class="ui main container">
+            {% for cat, msg in get_flashed_messages(with_categories=true) %}
+                <div class="ui {{ cat }} message"><p>{{ msg }}</p></div>
+            {% endfor %}
+        </div>
+            {% block body %}{% endblock %}
+            {% block content %}{% endblock %}
+        </table>
+    </body>
+</html>
